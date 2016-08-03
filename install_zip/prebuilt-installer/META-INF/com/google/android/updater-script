@@ -1,3 +1,7 @@
+assert(getprop("ro.product.device") == "d802" || getprop("ro.build.product") == "d802");
+
+ui_print("Installing MultiROM for d802");
+
 # Assert check for appropriate device is added during build,
 # see ../make_updater_script.sh and ../Android.mk
 
@@ -15,11 +19,14 @@ set_perm(0, 0, 0777, "/tmp/multirom/busybox");
 set_perm(0, 0, 0777, "/tmp/bbootimg");
 set_perm(0, 0, 0777, "/tmp/extract_multirom.sh");
 set_perm(0, 0, 0777, "/tmp/inject_boot.sh");
+set_perm(0, 0, 0777, "/tmp/apply-patch.sh");
+set_perm(0, 0, 0777, "/tmp/livebump.sh");
 
 assert(run_program("/tmp/extract_multirom.sh") == 0);
 ui_print("Injecting boot image...");
 assert(run_program("/tmp/inject_boot.sh") == 0);
-
+ui_print("Bumping boot image...");
+assert(run_program("/tmp/apply-patch.sh") == 0);
 ui_print("Cleaning up...");
 delete_recursive("/tmp/boot");
 delete_recursive("/tmp/multirom");
@@ -33,8 +40,13 @@ delete("/tmp/second.img");
 delete("/tmp/newboot.img");
 delete("/tmp/extract_multirom.sh");
 delete("/tmp/inject_boot.sh");
+delete("/tmp/apply-patch.sh");
+delete("/tmp/livebump.sh");
 delete("/tmp/bootdev");
 delete("/tmp/rd_addr");
 delete("/tmp/use_mrom_fstab");
+delete("/tmp/mkbootimg");
+delete("/tmp/sed");
+delete("/tmp/unpackbootimg");
 
 ui_print("Installation complete!");
