@@ -19,8 +19,6 @@ set_perm(0, 0, 0777, "/tmp/multirom/busybox");
 set_perm(0, 0, 0777, "/tmp/bbootimg");
 set_perm(0, 0, 0777, "/tmp/extract_multirom.sh");
 set_perm(0, 0, 0777, "/tmp/inject_boot.sh");
-set_perm(0, 0, 0777, "/tmp/apply-patch.sh");
-set_perm(0, 0, 0777, "/tmp/livebump.sh");
 
 assert(run_program("/tmp/extract_multirom.sh") == 0);
 ui_print("Injecting boot image...");
